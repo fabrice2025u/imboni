@@ -1,0 +1,37 @@
+app.get('/latest-news-by-category', async (req, res) => {
+
+    try {
+
+        const [rows] = await db.query(`
+
+            SELECT n1.*
+            FROM news n1
+
+            INNER JOIN (
+
+                SELECT category, MAX(created_at) AS latest_date
+                FROM news
+                GROUP BY category
+
+            ) n2
+
+            ON n1.category = n2.category
+            AND n1.created_at = n2.latest_date
+
+            ORDER BY n1.created_at DESC
+
+        `);
+
+        res.json(rows);
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            message:"Server Error"
+        });
+
+    }
+
+});

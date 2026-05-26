@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News Writer Pro</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f3f4f6;
+    color:#111827;
+}
+
+/* HEADER */
+
+.header{
+    width:100%;
+    background:#111827;
+    padding:18px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 4px 20px rgba(0,0,0,0.1);
+}
+
+.logo{
+    font-size:28px;
+    font-weight:700;
+    color:white;
+}
+
+.header-right{
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
+
+.status{
+    background:#16a34a;
+    color:white;
+    padding:8px 15px;
+    border-radius:50px;
+    font-size:14px;
+    font-weight:500;
+}
+
+button{
+    cursor:pointer;
+    transition:0.3s;
+}
+
+/* CONTAINER */
+
+.container{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+/* CARD */
+
+.editor-card{
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* TOP INFO */
+
+.top-info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+/* INPUTS */
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.input-group label{
+    font-size:14px;
+    font-weight:600;
+    color:#374151;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #d1d5db;
+    font-size:15px;
+    transition:0.3s;
+    outline:none;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#dc2626;
+    box-shadow:0 0 0 4px rgba(220,38,38,0.1);
+}
+
+.title{
+    font-size:30px;
+    font-weight:700;
+}
+
+/* TOOLBAR */
+
+.toolbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin:25px 0;
+    padding:15px;
+    background:#f9fafb;
+    border-radius:15px;
+    border:1px solid #e5e7eb;
+}
+
+.toolbar button,
+.upload-btn{
+    padding:12px 16px;
+    border:none;
+    border-radius:10px;
+    background:white;
+    font-weight:600;
+    border:1px solid #d1d5db;
+    transition:0.3s;
+}
+
+.toolbar button:hover,
+.upload-btn:hover{
+    background:#dc2626;
+    color:white;
+    transform:translateY(-2px);
+}
+
+/* EDITOR */
+
+.editor{
+    min-height:400px;
+    background:#ffffff;
+    padding:25px;
+    border-radius:15px;
+    border:1px solid #d1d5db;
+    outline:none;
+    font-size:17px;
+    line-height:1.8;
+}
+
+/* IMAGE */
+
+.preview-img{
+    width:100%;
+    max-height:450px;
+    object-fit:cover;
+    border-radius:15px;
+    margin-top:20px;
+    border:3px solid #e5e7eb;
+}
+
+/* FOOTER ACTIONS */
+
+.actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:30px;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.word-count{
+    color:#6b7280;
+    font-size:15px;
+    font-weight:500;
+}
+
+.publish{
+    padding:15px 30px;
+    background:#dc2626;
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:17px;
+    font-weight:600;
+    box-shadow:0 10px 20px rgba(220,38,38,0.2);
+}
+
+.publish:hover{
+    background:#b91c1c;
+    transform:translateY(-2px);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .top-info{
+        grid-template-columns:1fr;
+    }
+
+    .header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .toolbar{
+        justify-content:center;
+    }
+
+    .title{
+        font-size:24px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="logo">News Writer Pro</div>
+
+    <div class="header-right">
+        <div class="status">● Draft Mode</div>
+        <button class="publish" id="publishBtn">Publish News</button>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="editor-card">
+
+        <div class="input-group" style="margin-bottom:20px;">
+            <label>News Title</label>
+            <input type="text" id="title" class="title" placeholder="Enter breaking news title...">
+        </div>
+
+        <div class="top-info">
+
+            <div class="input-group">
+                <label>News Header</label>
+                <input type="text" id="header" placeholder="Enter short headline">
+            </div>
+
+            <div class="input-group">
+                <label>Category</label>
+
+                <select id="category">
+                    <option>Politics</option>
+                    <option>Sports</option>
+                    <option>Entertainment</option>
+                    <option>Business</option>
+                    <option>Technology</option>
+                    <option>Health</option>
+                    <option>World</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- TOOLBAR -->
+
+        <div class="toolbar">
+
+            <button onclick="cmd('bold')"><b>B</b></button>
+
+            <button onclick="cmd('italic')"><i>I</i></button>
+
+            <button onclick="cmd('underline')"><u>U</u></button>
+
+            <button onclick="cmd('insertUnorderedList')">• List</button>
+
+            <button onclick="cmd('justifyLeft')">Left</button>
+
+            <button onclick="cmd('justifyCenter')">Center</button>
+
+            <button onclick="cmd('justifyRight')">Right</button>
+
+            <button onclick="cmd('undo')">Undo</button>
+
+            <button onclick="cmd('redo')">Redo</button>
+
+            <label class="upload-btn">
+
+                Upload Image
+
+                <input type="file" id="image" hidden>
+
+            </label>
+
+        </div>
+
+        <!-- EDITOR -->
+
+        <div id="editor" class="editor" contenteditable="true">
+
+            Start writing your professional news article here...
+
+        </div>
+
+        <!-- IMAGE -->
+
+        <img id="imgPreview" class="preview-img" style="display:none;">
+
+        <!-- ACTIONS -->
+
+        <div class="actions">
+
+            <div class="word-count">
+                Words: <span id="wordCount">0</span>
+            </div>
+
+            <button class="publish" id="saveDraft">
+                Save Draft
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+let imageBase64 = null;
+
+/* TEXT COMMANDS */
+
+function cmd(command){
+
+    document.execCommand(command,false,null);
+
+}
+
+/* WORD COUNT */
+
+const editor = document.getElementById("editor");
+
+editor.addEventListener("input",()=>{
+
+    const text = editor.innerText.trim();
+
+    const words = text.length > 0
+        ? text.split(/\s+/).length
+        : 0;
+
+    document.getElementById("wordCount").innerText = words;
+
+});
+
+/* IMAGE PREVIEW */
+
+document.getElementById("image").addEventListener("change",function(){
+
+    const file = this.files[0];
+
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+        imageBase64 = e.target.result;
+
+        const img = document.getElementById("imgPreview");
+
+        img.src = imageBase64;
+
+        img.style.display = "block";
+
+    }
+
+    reader.readAsDataURL(file);
+
+});
+
+/* SAVE DRAFT */
+
+document.getElementById("saveDraft").addEventListener("click",()=>{
+
+    localStorage.setItem("draftTitle",document.getElementById("title").value);
+
+    localStorage.setItem("draftHeader",document.getElementById("header").value);
+
+    localStorage.setItem("draftCategory",document.getElementById("category").value);
+
+    localStorage.setItem("draftBody",document.getElementById("editor").innerHTML);
+
+    alert("Draft Saved!");
+
+});
+
+/* LOAD DRAFT */
+
+window.onload = ()=>{
+
+    if(localStorage.getItem("draftTitle")){
+
+        document.getElementById("title").value = localStorage.getItem("draftTitle");
+
+        document.getElementById("header").value = localStorage.getItem("draftHeader");
+
+        document.getElementById("category").value = localStorage.getItem("draftCategory");
+
+        document.getElementById("editor").innerHTML = localStorage.getItem("draftBody");
+
+    }
+
+}
+
+/* PUBLISH */
+
+document.getElementById("publishBtn").addEventListener("click",()=>{
+
+    const data = {
+
+        title: document.getElementById("title").value,
+
+        header: document.getElementById("header").value,
+
+        category: document.getElementById("category").value,
+
+        body: document.getElementById("editor").innerHTML,
+
+        image: imageBase64,
+
+        created_at: new Date()
+
+    };
+
+    fetch("http://localhost:3000/news",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body: JSON.stringify(data)
+
+    })
+
+    .then(res => res.json())
+
+    .then(res => {
+
+        alert("News Published Successfully!");
+
+        localStorage.clear();
+
+        location.reload();
+
+    })
+
+    .catch(err=>{
+
+        console.log(err);
+
+        alert("Error publishing news");
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>

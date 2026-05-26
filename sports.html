@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>imboni</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f1f1f1;
+}
+
+.container{
+    width:100%;
+    min-height:100vh;
+    background:white;
+}
+
+.top-ad{
+    width:100%;
+    background:white;
+    color:black;
+    text-align:center;
+    padding:20px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+nav{
+    width:100%;
+    background:#e63946;
+    padding:18px 5%;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.menu-toggle{
+    display:none;
+    flex-direction:column;
+    cursor:pointer;
+    gap:6px;
+}
+
+.menu-toggle span{
+    width:30px;
+    height:3px;
+    background:white;
+    border-radius:5px;
+}
+
+nav ul{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    list-style:none;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+nav ul li a:hover{
+    color:yellow;
+}
+
+.main{
+    width:100%;
+    padding:40px 5%;
+}
+
+.left-news{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+}
+
+.news-card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.4s;
+}
+
+.news-card:hover{
+    transform:translateY(-8px);
+}
+
+.news-card h2{
+    padding:20px 20px 0;
+    font-size:30px;
+    color:#222;
+}
+
+.news-card img{
+    width:100%;
+    max-height:400px;
+    object-fit:cover;
+    margin-top:20px;
+}
+
+.news-content{
+    padding:25px;
+}
+
+.news-content p{
+    color:#555;
+    line-height:1.8;
+    font-size:17px;
+}
+
+.date{
+    margin-top:15px;
+    color:gray;
+    font-size:14px;
+}
+
+.read-more-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 22px;
+    background:#e63946;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    transition:0.3s;
+    font-weight:bold;
+}
+
+.read-more-btn:hover{
+    background:#c1121f;
+}
+
+footer{
+    width:100%;
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:20px;
+    font-size:18px;
+}
+
+@media(max-width:900px){
+
+    .menu-toggle{
+        display:flex;
+    }
+
+    nav ul{
+        position:absolute;
+        top:70px;
+        right:20px;
+        width:220px;
+        background:#e63946;
+        flex-direction:column;
+        gap:20px;
+        padding:20px;
+        display:none;
+        border-radius:12px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    nav ul.active{
+        display:flex;
+    }
+
+    nav ul li a{
+        font-size:16px;
+    }
+
+    .news-card h2{
+        font-size:22px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top-ad">
+        
+    </div>
+
+    <nav>
+
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <ul id="navMenu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="politics.html">Politics</a></li>
+            <li><a href="sports.html">Sports</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="entertainment.html">Entertainment</a></li>
+            <li><a href="healthy.html">Healthy</a></li>
+            <li><a href="education.html">Education</a></li>
+        </ul>
+
+    </nav>
+
+    <div class="main">
+
+        <div class="left-news">
+
+            <div id="newsContainer"></div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        © 2026 imboni | All Rights Reserved
+    </footer>
+
+</div>
+
+<script>
+
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
+
+menuToggle.onclick = () => {
+    navMenu.classList.toggle("active");
+};
+
+</script>
+
+</body>
+</html>
